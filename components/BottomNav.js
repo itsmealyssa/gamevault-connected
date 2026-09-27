@@ -1,1 +1,65 @@
-import React from'react';import{View,Text,TouchableOpacity,StyleSheet}from'react-native';import{colors}from'../styles/theme';const a=[['Collection','▦'],['Backlog','◷'],['Stats','▥'],['Stores','☁']];export default function BottomNav({screen,setScreen}){return <View style={s.n}>{a.map(x=><TouchableOpacity key={x[0]} style={s.i} onPress={()=>setScreen(x[0])}><Text style={[s.ic,screen===x[0]&&s.on]}>{x[1]}</Text><Text style={[s.t,screen===x[0]&&s.on]}>{x[0]}</Text></TouchableOpacity>)}</View>}const s=StyleSheet.create({n:{position:'absolute',bottom:0,left:0,right:0,height:76,backgroundColor:colors.panel2,borderTopWidth:1,borderTopColor:colors.border,flexDirection:'row',justifyContent:'space-around'},i:{alignItems:'center',justifyContent:'center',width:90},ic:{color:'#475569',fontSize:20},t:{color:'#475569',fontSize:9,marginTop:4,fontWeight:'800'},on:{color:colors.blue}});
+import React from'react';
+import{View,Text,TouchableOpacity,StyleSheet}from'react-native';
+import{colors}from'../styles/theme';
+
+const a=[
+  ['Collection','▦'],
+  ['Backlog','◷'],
+  ['Stats','▥'],
+  ['Stores','☁']
+];
+
+export default function BottomNav({screen,setScreen})
+{
+  return (
+    <View style={s.n}>
+      {a.map(x=>
+        <TouchableOpacity
+          key={x[0]}
+          style={s.i}
+          onPress={()=>setScreen(x[0])}
+        >
+          <Text style={[s.ic,screen===x[0]&&s.on]}>
+            {x[1]}
+          </Text>
+          <Text style={[s.t,screen===x[0]&&s.on]}>
+            {x[0]}
+          </Text>
+        </TouchableOpacity>
+      )}
+    </View>
+  )
+}
+
+const s=StyleSheet.create({
+  n:{
+    position:'absolute',
+    bottom:0,
+    left:0,
+    right:0,
+    height:76,
+    backgroundColor:colors.panel2,
+    borderTopWidth:1,
+    borderTopColor:colors.border,
+    flexDirection:'row',
+    justifyContent:'space-around'
+  },
+  i:{
+    alignItems:'center',
+    justifyContent:'center',
+    width:90
+  },
+  ic:{
+    color:'#475569',
+    fontSize:20
+  },
+  t:{
+    color:'#475569',
+    fontSize:9,
+    marginTop:4,
+    fontWeight:'800'
+  },
+  on:{
+    color:colors.blue
+  }
+});

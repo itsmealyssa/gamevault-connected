@@ -1,1 +1,13 @@
-{"expo":{"name":"GameVault","slug":"gamevault-connected","version":"1.0.0","orientation":"portrait","userInterfaceStyle":"dark","newArchEnabled":true,"android":{"package":"com.gamevault.connected"}}}
+{
+  "expo": {
+    "name": "GameVault",
+    "slug": "gamevault-connected",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": true,
+    "android": {
+      "package": "com.gamevault.connected"
+    }
+  }
+}

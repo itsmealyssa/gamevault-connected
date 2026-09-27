@@ -1,2 +1,156 @@
-import React from "react";import{ScrollView,View,Text,TouchableOpacity,StyleSheet}from"react-native";import{stores}from"../data/stores";import{colors}from"../styles/theme";
-export default function StoresScreen({connected,setConnected}){return <ScrollView contentContainerStyle={s.page}><Text style={s.h}>Game Stores</Text><Text style={s.m}>Connect your accounts to import owned games.</Text><View style={s.warn}><Text style={s.wt}>Account privacy</Text><Text style={s.m}>This prototype does not collect passwords. Production connections should use official OAuth.</Text></View>{stores.map(x=>{const c=!!connected[x[0]];return <View style={s.store} key={x[0]}><View style={[s.icon,{backgroundColor:x[3]}]}><Text style={[s.it,{color:x[0]==="epic"?"#111":"#fff"}]}>{x[2]}</Text></View><View style={s.info}><Text style={s.name}>{x[1]}</Text><Text style={s.m}>{c?"Connected":"Not connected"}</Text></View><TouchableOpacity style={[s.connect,c&&s.dis]} onPress={()=>setConnected({...connected,[x[0]]:!c})}><Text style={s.ct}>{c?"Disconnect":"Connect"}</Text></TouchableOpacity></View>})}</ScrollView>};const s=StyleSheet.create({page:{padding:20,paddingBottom:110},h:{fontSize:29,fontWeight:"900",color:colors.white},m:{color:colors.muted,fontSize:12,marginTop:4},warn:{marginTop:18,padding:15,borderRadius:14,backgroundColor:"#171a12",borderWidth:1,borderColor:"#5b5422"},wt:{fontWeight:"900",color:colors.white},store:{marginTop:12,padding:14,borderRadius:15,backgroundColor:colors.panel,borderWidth:1,borderColor:colors.border,flexDirection:"row",alignItems:"center",gap:12},icon:{width:44,height:44,borderRadius:12,alignItems:"center",justifyContent:"center"},it:{fontWeight:"900",fontSize:20},info:{flex:1},name:{fontSize:14,color:colors.white,fontWeight:"800"},connect:{backgroundColor:colors.blue,paddingHorizontal:13,paddingVertical:9,borderRadius:9},dis:{backgroundColor:"#172338"},ct:{color:"#fff",fontWeight:"800",fontSize:11}});
+import React from "react";
+
+import{
+  ScrollView,
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet
+}from"react-native";
+
+import{stores}from"../data/stores";
+import{colors}from"../styles/theme";
+
+export default function StoresScreen({connected,setConnected})
+{
+  return (
+    <ScrollView contentContainerStyle={s.page}>
+      <Text style={s.h}>
+        Game Stores
+      </Text>
+
+      <Text style={s.m}>
+        Connect your accounts to import owned games.
+      </Text>
+
+      <View style={s.warn}>
+        <Text style={s.wt}>
+          Account privacy
+        </Text>
+
+        <Text style={s.m}>
+          This prototype does not collect passwords. Production connections should use official OAuth.
+        </Text>
+      </View>
+
+      {stores.map(x=>{
+        const c=!!connected[x[0]];
+
+        return (
+          <View
+            style={s.store}
+            key={x[0]}
+          >
+            <View
+              style={[
+                s.icon,
+                {backgroundColor:x[3]}
+              ]}
+            >
+              <Text
+                style={[
+                  s.it,
+                  {color:x[0]==="epic"?"#111":"#fff"}
+                ]}
+              >
+                {x[2]}
+              </Text>
+            </View>
+
+            <View style={s.info}>
+              <Text style={s.name}>
+                {x[1]}
+              </Text>
+
+              <Text style={s.m}>
+                {c?"Connected":"Not connected"}
+              </Text>
+            </View>
+
+            <TouchableOpacity
+              style={[s.connect,c&&s.dis]}
+              onPress={()=>setConnected({...connected,[x[0]]:!c})}
+            >
+              <Text style={s.ct}>
+                {c?"Disconnect":"Connect"}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )
+      })}
+    </ScrollView>
+  )
+};
+
+const s=StyleSheet.create({
+  page:{
+    padding:20,
+    paddingBottom:110
+  },
+  h:{
+    fontSize:29,
+    fontWeight:"900",
+    color:colors.white
+  },
+  m:{
+    color:colors.muted,
+    fontSize:12,
+    marginTop:4
+  },
+  warn:{
+    marginTop:18,
+    padding:15,
+    borderRadius:14,
+    backgroundColor:"#171a12",
+    borderWidth:1,
+    borderColor:"#5b5422"
+  },
+  wt:{
+    fontWeight:"900",
+    color:colors.white
+  },
+  store:{
+    marginTop:12,
+    padding:14,
+    borderRadius:15,
+    backgroundColor:colors.panel,
+    borderWidth:1,
+    borderColor:colors.border,
+    flexDirection:"row",
+    alignItems:"center",
+    gap:12
+  },
+  icon:{
+    width:44,
+    height:44,
+    borderRadius:12,
+    alignItems:"center",
+    justifyContent:"center"
+  },
+  it:{
+    fontWeight:"900",
+    fontSize:20
+  },
+  info:{
+    flex:1
+  },
+  name:{
+    fontSize:14,
+    color:colors.white,
+    fontWeight:"800"
+  },
+  connect:{
+    backgroundColor:colors.blue,
+    paddingHorizontal:13,
+    paddingVertical:9,
+    borderRadius:9
+  },
+  dis:{
+    backgroundColor:"#172338"
+  },
+  ct:{
+    color:"#fff",
+    fontWeight:"800",
+    fontSize:11
+  }
+});

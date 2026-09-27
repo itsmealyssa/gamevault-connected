@@ -1,10 +1,187 @@
 import React from "react";
-import {View,Text,TextInput,ScrollView,FlatList,TouchableOpacity,StyleSheet} from "react-native";
+
+import {
+  View,
+  Text,
+  TextInput,
+  ScrollView,
+  FlatList,
+  TouchableOpacity,
+  StyleSheet
+} from "react-native";
+
 import GameCard from "../components/GameCard";
 import {StatCard} from "../components/StatCard";
 import {colors} from "../styles/theme";
-export default function CollectionScreen({games,filter,setFilter,search,setSearch,onSelect}){
-const done=games.filter(g=>g.status==="Completed").length,playing=games.filter(g=>g.status==="Playing"||g.status==="In Progress").length,hours=games.reduce((a,g)=>a+g.hours,0);
-const filtered=games.filter(g=>{const f=filter==="All"||(filter==="In Progress"&&(g.status==="In Progress"||g.status==="Playing"))||g.status===filter;return f&&g.title.toLowerCase().includes(search.toLowerCase())});
-return <View style={s.c}><View style={s.hero}><Text style={s.h}>My Games</Text><Text style={s.m}>{games.length} owned · {done} completed · {hours} hours</Text></View><View style={s.stats}><StatCard number={games.length} label="OWNED"/><StatCard number={games.filter(g=>g.status==="Backlog").length} label="BACKLOG"/><StatCard number={playing} label="PLAYING"/><StatCard number={done} label="DONE"/></View><TextInput value={search} onChangeText={setSearch} placeholder="Search games..." placeholderTextColor={colors.muted} style={s.search}/><ScrollView horizontal showsHorizontalScrollIndicator={false} style={s.filters} contentContainerStyle={s.filterContent}>{["All","Backlog","In Progress","Completed"].map(x=><TouchableOpacity key={x} onPress={()=>setFilter(x)} style={[s.chip,filter===x&&s.on]}><Text style={[s.chipText,filter===x&&s.onText]}>{x}</Text></TouchableOpacity>)}</ScrollView><FlatList data={filtered} keyExtractor={x=>x.id} showsVerticalScrollIndicator={false} contentContainerStyle={s.list} renderItem={({item})=><GameCard game={item} onPress={()=>onSelect(item)}/>} /></View>}
-const s=StyleSheet.create({c:{flex:1},hero:{padding:20,paddingBottom:12},h:{fontSize:29,fontWeight:"900",color:colors.white},m:{color:colors.muted,fontSize:12,marginTop:4},stats:{marginHorizontal:16,backgroundColor:colors.panel,borderWidth:1,borderColor:colors.border,borderRadius:16,paddingVertical:15,flexDirection:"row"},search:{height:48,margin:16,marginBottom:8,borderRadius:13,backgroundColor:colors.panel,borderWidth:1,borderColor:colors.border,paddingHorizontal:15,color:"#fff"},filters:{height:58,flexGrow:0},filterContent:{paddingLeft:16,alignItems:"center"},chip:{height:42,borderWidth:1,borderColor:colors.borderLight,paddingHorizontal:15,borderRadius:21,marginRight:8,alignItems:"center",justifyContent:"center"},on:{backgroundColor:"#e2e8f0"},chipText:{color:"#94a3b8",fontWeight:"800",fontSize:11},onText:{color:"#0b1220"},list:{padding:16,paddingTop:2,paddingBottom:100}});
+
+export default function CollectionScreen({
+  games,
+  filter,
+  setFilter,
+  search,
+  setSearch,
+  onSelect
+}){
+  const done=games.filter(g=>g.status==="Completed").length,
+  playing=games.filter(g=>g.status==="Playing"||g.status==="In Progress").length,
+  hours=games.reduce((a,g)=>a+g.hours,0);
+
+  const filtered=games.filter(g=>{
+    const f=
+      filter==="All"||
+      (filter==="In Progress"&&(g.status==="In Progress"||g.status==="Playing"))||
+      g.status===filter;
+
+    return f&&g.title.toLowerCase().includes(search.toLowerCase())
+  });
+
+  return (
+    <View style={s.c}>
+      <View style={s.hero}>
+        <Text style={s.h}>
+          My Games
+        </Text>
+
+        <Text style={s.m}>
+          {games.length} owned · {done} completed · {hours} hours
+        </Text>
+      </View>
+
+      <View style={s.stats}>
+        <StatCard
+          number={games.length}
+          label="OWNED"
+        />
+
+        <StatCard
+          number={games.filter(g=>g.status==="Backlog").length}
+          label="BACKLOG"
+        />
+
+        <StatCard
+          number={playing}
+          label="PLAYING"
+        />
+
+        <StatCard
+          number={done}
+          label="DONE"
+        />
+      </View>
+
+      <TextInput
+        value={search}
+        onChangeText={setSearch}
+        placeholder="Search games..."
+        placeholderTextColor={colors.muted}
+        style={s.search}
+      />
+
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        style={s.filters}
+        contentContainerStyle={s.filterContent}
+      >
+        {["All","Backlog","In Progress","Completed"].map(x=>
+          <TouchableOpacity
+            key={x}
+            onPress={()=>setFilter(x)}
+            style={[s.chip,filter===x&&s.on]}
+          >
+            <Text style={[s.chipText,filter===x&&s.onText]}>
+              {x}
+            </Text>
+          </TouchableOpacity>
+        )}
+      </ScrollView>
+
+      <FlatList
+        data={filtered}
+        keyExtractor={x=>x.id}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={s.list}
+        renderItem={({item})=>
+          <GameCard
+            game={item}
+            onPress={()=>onSelect(item)}
+          />
+        }
+      />
+    </View>
+  )
+}
+
+const s=StyleSheet.create({
+  c:{
+    flex:1
+  },
+  hero:{
+    padding:20,
+    paddingBottom:12
+  },
+  h:{
+    fontSize:29,
+    fontWeight:"900",
+    color:colors.white
+  },
+  m:{
+    color:colors.muted,
+    fontSize:12,
+    marginTop:4
+  },
+  stats:{
+    marginHorizontal:16,
+    backgroundColor:colors.panel,
+    borderWidth:1,
+    borderColor:colors.border,
+    borderRadius:16,
+    paddingVertical:15,
+    flexDirection:"row"
+  },
+  search:{
+    height:48,
+    margin:16,
+    marginBottom:8,
+    borderRadius:13,
+    backgroundColor:colors.panel,
+    borderWidth:1,
+    borderColor:colors.border,
+    paddingHorizontal:15,
+    color:"#fff"
+  },
+  filters:{
+    height:58,
+    flexGrow:0
+  },
+  filterContent:{
+    paddingLeft:16,
+    alignItems:"center"
+  },
+  chip:{
+    height:42,
+    borderWidth:1,
+    borderColor:colors.borderLight,
+    paddingHorizontal:15,
+    borderRadius:21,
+    marginRight:8,
+    alignItems:"center",
+    justifyContent:"center"
+  },
+  on:{
+    backgroundColor:"#e2e8f0"
+  },
+  chipText:{
+    color:"#94a3b8",
+    fontWeight:"800",
+    fontSize:11
+  },
+  onText:{
+    color:"#0b1220"
+  },
+  list:{
+    padding:16,
+    paddingTop:2,
+    paddingBottom:100
+  }
+});
